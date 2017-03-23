@@ -1,4 +1,6 @@
-#pragma once
+// Project 2
+// Texttool.h
+
 #pragma once
 
 #include <string>
@@ -13,14 +15,12 @@ class TextTool {
 public:
 	// default constructor
 	TextTool() {
-		// TO BE COMPLETED
-
+		dupes = 0;
 	}
 
 	// destructor
 	~TextTool() {
-		// TO BE COMPLETED
-
+		
 	}
 
 	// Load information from a text file with the given filename.
@@ -41,58 +41,83 @@ public:
 
 	// return the number of words in the linked list
 	int totalWords() {
-		return -1; // TO BE COMPLETED
-
+		return  wordlist.size();
 	}
 
 	// add entry at the back of the linked list
 	void addEntryBack(const string& aword) {
-
-		// TO BE COMPLETED
-
+		wordlist.push_back(aword);
 	}
 
 	// print all words stored in the linked list, separated by a space
 	const string listToString() {
-		// TO BE COMPLETED
-
+		string fullText = "";
+		for (itr = wordlist.begin(); itr != wordlist.end(); itr++)
+		{
+			fullText = fullText + *itr + " ";
+		}
+		return fullText;
 	}
 
 	// print duplicated words in the linked list
 	void printDuplicates() {
-		// TO BE COMPLETED
-
+		nextWord = wordlist.begin();
+		nextWord++;
+		for (itr = wordlist.begin(); itr != wordlist.end(); itr++)
+		{
+			if (*nextWord == *itr)
+			{
+				cout << endl << "DUPLICATE LOCATED:  " << *nextWord;
+			}
+			if (nextWord != wordlist.end())
+			{
+				nextWord++;
+			}
+		}
 	}
 
 	// remove duplicated words in the linked
 	void removeDuplicates() {
-		// TO BE COMPLETED
-
+		wordlist.unique();
 	}
 
 	// determine the total number of duplicated words in the list
 	int totalDuplicates() {
-		// TO BE COMPLETED
-
+		nextWord = wordlist.begin();
+		nextWord++;
+		for (itr = wordlist.begin(); itr != wordlist.end(); itr++)
+		{
+			if (*nextWord == *itr)
+			{
+				dupes++;
+			}
+			if (nextWord != wordlist.end())
+			nextWord++;
+		}
+		return dupes;
 	}
 
 	// check if the list is empty
 	bool isEmpty() {
-	
-		//TBC
+		return wordlist.empty();
 	}
 
 	// Empty the list
 	void makeEmpty() {
-		// TO BE COMPLETED
-
+		wordlist.clear();
+		/*itr = wordlist.begin();
+		while (!wordlist.empty())
+		{
+			wordlist.erase(itr);
+			itr++;
+		}*/
 	}
 
 private:
 
-	int n;
-	int duplicates;
-
-	list<string> *wordlist;
+	int dupes;
+	list<string>::const_iterator itr;
+	list<string>::const_iterator nextWord;
+	list<string> wordlist;
 };
 
